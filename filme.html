@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="filmes.css">
+    <title>CineSeven - Filme</title>
+</head>
+<body>
+    <div class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="main.html">
+        <div class="logo">
+            <h1>CineSeven</h1>
+        </div>
+        </a>
+        <div class="links">
+                <a href="cartaz.html">Cartaz</a>
+                <a href="cinemas.html" >Cinema</a>
+                <a href="registo.html" id="registo">Registo</a>
+                <a href="rlogin.html" id="log">Login</a>
+                <a href="#" onclick="myFunction()" class="dropbtn" id="myAccount" style="display:none"></a>
+                <div class="dropdown">
+                    <div id="myDropdown" class="dropdown-content">
+                    <a href="profile.html">Perfil</a>
+                    <a href="#" id="logout">LogOut</a>
+                    </div>
+                </div>
+                <a href="admin/admin.html" id="nel" style="display:none">Painel</a>                      
+            </div>
+        </div>  
+    </div>
+
+    <script>
+
+        $("title").text();
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+                }
+            }
+            }
+        }
+    </script>
+      
+      <br>
+        
+      <div class="conteudo-principal">
+    
+        <!-- início elemento -->
+        <div class="elementos conteudo-flex">
+          <div class="poster-play">
+            <div>
+              <img id="imagemFilme" src="" alt="imagem modelo poster de filme" title="imagem modelo poster de filme">
+            </div>
+            <div>
+              <br>
+              <section>
+     
+                <a href="" id="filmeTrailer" class="btn-lg btn-danger" >Trailer</a>
+
+              </section>            
+            </div>
+          </div>
+        
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          
+    
+          <div class="info-play">
+            <h1></h1>
+            <p class="info-play-ano"></p>
+            <p><a></a></p>
+            <p><em>Duração:</em> <span></span></p>
+            <p><em>Idade:</em> <span></span></p>
+            <p><em>Direção: </em><a></a></p>
+            <p><em>Sinopse: </em></p>
+            <p><em>Elenco: </em></p>
+        </div>
+        </div>             
+
+        <br>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+        <br>
+        <br>
+
+          <section class="choose-section__main-inner container-inner--two-thirds">
+            <h1>
+              <span class="text-italic">
+                Sessões Disponiveis
+              </span>
+            </h1>
+            <br>
+            <br>
+            <nav class="navbar navbar-expand-custom navbar-mainbg">
+                <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-white"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_1" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dia 1</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" data-target="sessionsContainer_2" href="javascript:void(0);"><i class="far fa-address-book"></i>Dia 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_3" href="javascript:void(0);"><i class="far fa-clone"></i>Dia 3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_4" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Dia 4</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_5" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Dia 5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_6" href="javascript:void(0);"><i class="far fa-copy"></i>Dia 6</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="sessionsContainer_7" href="javascript:void(0);"><i class="far fa-copy"></i>Dia 7</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+          </section>
+
+          <br>
+
+        <div id="sessionsContainer_1" class="sessionsContainer" style="display: none;" data-day="Dia 1">
+            
+        </div> 
+
+        <div id="sessionsContainer_2" class="sessionsContainer" style="display: none;" data-day="Dia 2">
+            
+        </div>
+
+        <div id="sessionsContainer_3" class="sessionsContainer" style="display: none;" data-day="Dia 3">
+            
+        </div>
+
+        <div id="sessionsContainer_4" class="sessionsContainer" style="display: none;" data-day="Dia 4">
+            
+        </div>
+
+        <div id="sessionsContainer_5" class="sessionsContainer" style="display: none;" data-day="Dia 5">
+            
+        </div>
+
+        <div id="sessionsContainer_6" class="sessionsContainer" style="display: none;" data-day="Dia 6">
+            
+        </div>
+
+        <div id="sessionsContainer_7" class="sessionsContainer" style="display: none;" data-day="Dia 7">
+            
+        </div>
+
+            <script>
+                // ---------Responsive-navbar-active-animation-----------
+                function test(){
+                    var tabsNewAnim = $('#navbarSupportedContent');
+                    var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+                    var activeItemNewAnim = tabsNewAnim.find('.active');
+                    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+                    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+                    var itemPosNewAnimTop = activeItemNewAnim.position();
+                    var itemPosNewAnimLeft = activeItemNewAnim.position();
+                    $(".hori-selector").css({
+                        "top":itemPosNewAnimTop.top + "px", 
+                        "left":itemPosNewAnimLeft.left + "px",
+                        "height": activeWidthNewAnimHeight + "px",
+                        "width": activeWidthNewAnimWidth-10 + "px"
+                    });
+                    $("#navbarSupportedContent").on("click","li",function(e){
+                        $('#navbarSupportedContent ul li').removeClass("active");
+                        $(this).addClass('active');
+                        var activeWidthNewAnimHeight = $(this).innerHeight();
+                        var activeWidthNewAnimWidth = $(this).innerWidth();
+                        var itemPosNewAnimTop = $(this).position();
+                        var itemPosNewAnimLeft = $(this).position();
+                        $(".hori-selector").css({
+                            "top":itemPosNewAnimTop.top + "px", 
+                            "left":itemPosNewAnimLeft.left + "px",
+                            "height": activeWidthNewAnimHeight + "px",
+                            "width": activeWidthNewAnimWidth + "px"
+                        });
+                    });
+                }
+                $(document).ready(function(){
+                    setTimeout(function(){ test(); });
+                });
+                $(window).on('resize', function(){
+                    setTimeout(function(){ test(); }, 500);
+                });
+                $(".navbar-toggler").click(function(){
+                    $(".navbar-collapse").slideToggle(300);
+                    setTimeout(function(){ test(); });
+                });
+
+                // --------------add active class-on another-page move----------
+                jQuery(document).ready(function($){
+                    // Get current path and find target link
+                    var path = window.location.pathname.split("/").pop();
+
+                    // Account for home page with empty path
+                    if ( path == '' ) {
+                        path = 'main.html';
+                    }
+
+                    var target = $('#navbarSupportedContent ul li a[href="'+path+'"]');
+                    // Add active class to target link
+                    target.parent().addClass('active');
+                });
+            </script>
+
+            <script>
+                // Função para atualizar os links dos dias na navbar
+                function updateDays() {
+                    const days = document.querySelectorAll('.navbar-nav .nav-item');
+                    const today = new Date(); // Pegar a data de hoje
+                    const dayMilliseconds = 24 * 60 * 60 * 1000; // Milissegundos em um dia
+
+                    // Atualizar os links para os próximos 7 dias
+                    for (let i = 0; i < days.length; i++) {
+                        const dayElement = days[i];
+                        const dayDate = new Date(today.getTime() + i * dayMilliseconds);
+                        const dayString = dayDate.getDate(); // Pegar o dia do mês
+
+                        // Atualizar o texto do link para o dia correspondente
+                        dayElement.querySelector('.nav-link').innerText = `Dia ${dayString}`;
+                    }
+                }
+
+                // Chamada inicial para atualizar os dias quando a página carregar
+                window.addEventListener('load', function() {
+                    updateDays();
+                });
+            </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const days = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
+                    
+                    days.forEach(day => {
+                        day.addEventListener('click', function () {
+                            const target = this.getAttribute('data-target'); // Obtém o ID do contêiner de sessões associado ao dia clicado
+                            
+                            const allSessions = document.querySelectorAll('.sessionsContainer');
+                            
+                            allSessions.forEach(session => {
+                                if (session.id === target) {
+                                    session.style.display = 'block'; // Exibe o contêiner do dia clicado
+                                } else {
+                                    session.style.display = 'none'; // Oculta os outros contêineres de sessões
+                                }
+                            });
+                        });
+                    });
+                });
+            
+                // Ocultar todos os contêineres de sessões inicialmente
+                window.addEventListener('DOMContentLoaded', function() {
+                    const allSessions = document.querySelectorAll('.sessionsContainer');
+                    allSessions.forEach(session => {
+                        session.style.display = 'none';
+                    });
+                });
+            </script>  
+        
+        <br>
+        <br>
+        <br> 
+        <br>       
+
+      <script type="module">
+        document.addEventListener('DOMContentLoaded', function () {
+          if (sessionStorage.getItem('loggedIn') === 'true') {
+            $("#log").hide();
+            $("#registo").hide();
+            $("#logout").show();
+            $("#myAccount").show();
+          } 
+          else 
+          {
+            $("#log").show();
+            $("#registo").show();
+            $("#logout").hide();
+            $("#myAccount").hide();
+          }
+    
+      // Assuming you have a logout button with id "logoutBtn"
+        $("#logout").click(function () {
+            sessionStorage.removeItem('loggedIn');
+            // Redirect to the login page or any other desired location
+        
+            window.location.href = 'rlogin.html';
+          });
+        });
+        
+      </script>
+      
+      <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getAuth} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+        import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+            
+        const firebaseConfig = {
+        databaseURL: "https://pap--11-01-default-rtdb.europe-west1.firebasedatabase.app",
+        apiKey: "AIzaSyAQ53q90zz4ladNEqDqWgcaMXIvOu7uYrY",
+        authDomain: "pap--11-01.firebaseapp.com",
+        projectId: "pap--11-01",
+        storageBucket: "pap--11-01.appspot.com",
+        messagingSenderId: "768987706479",
+        appId: "1:768987706479:web:47662a04df7274d930499a",
+        measurementId: "G-B7QVNLWHJZ"
+        };       
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const firebaseApp = initializeApp(firebaseConfig);
+            const firestore = getFirestore(firebaseApp);
+            const auth = getAuth(firebaseApp);
+            const database = getDatabase(firebaseApp);  
+
+            // string da query da URL
+            const queryString = window.location.search;
+
+            // objeto URLSearchParams com a string da query
+            const urlParams = new URLSearchParams(queryString);
+
+            const idFilme = urlParams.get('id');
+
+            const colRef = collection(firestore, 'filme');
+
+            const infoPlay = document.querySelector('.info-play');
+            const tituloElement = infoPlay.querySelector('h1');
+            const anoElement = infoPlay.querySelector('.info-play-ano');
+            const generosElement = infoPlay.querySelector('a');
+            const duracaoElement = infoPlay.querySelector('p:nth-child(4) span');
+            const idadeElement = infoPlay.querySelector('p:nth-child(5) span');
+            const direcaoElement = infoPlay.querySelector('p:nth-child(6) a');
+            const sinopseElement = infoPlay.querySelector('p:nth-child(7)');
+            const elencoElement = infoPlay.querySelector('p:nth-child(8)');
+            const imagemElement = $("#imagemFilme");
+            const filmeTrailer = $("#filmeTrailer");
+
+            getDocs(colRef)
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        if (data && doc.id === idFilme) { 
+
+                            tituloElement.textContent = data.nome;
+                            anoElement.innerHTML = "<em>Data de Estreia: </em> " + data.dataEstreia;
+                            generosElement.innerHTML = "<em>Genero: </em> " + data.generos;
+                            duracaoElement.textContent = data.duracao;
+                            idadeElement.textContent = data.idade;
+                            direcaoElement.textContent = data.direcao;
+                            sinopseElement.innerHTML = "<em>Sinopse: </em> " + data.sinopse;
+                            elencoElement.innerHTML = "<em>Elenco: </em> " + data.elenco;
+                            imagemFilme.src = data.capa;
+                            filmeTrailer.attr('href', data.trailer);
+                            filmeTrailer.attr('target', '_blank');
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error("Erro ao obter documentos:", error);
+                });
+  
+        // Assuming you have a logout button with id "logoutBtn"
+        $("#logout").click(function () {
+            sessionStorage.removeItem('loggedIn');
+            // Redirect to the login page or any other desired location
+            location.reload();
+        });
+
+        const usersRef = getDatabase();
+        const clientes = ref(database);
+
+        // Verificar o estado de autenticação do usuário
+        let userLogged;
+
+        if (sessionStorage.getItem('loggedIn') === 'true') {
+
+          $("#log").hide();
+          $("#registo").hide();
+          $("#logout").show();
+          $("#myAccount").show();
+
+          auth.onAuthStateChanged(function(user) {
+              if (user) {
+                  // O usuário está autenticado
+                  userLogged = user.uid;
+                  // 'user' contém informações sobre o usuário autenticado
+                  // Você pode acessar outras informações do usuário, como o email, usando user.email
+              } else {
+                  // Nenhum usuário está autenticado
+                  console.log('Nenhum usuário logado.');
+              }
+          });
+
+          get(child(clientes, `clientes`)).then((snapshot) => {
+
+              const userId = userLogged;
+              const users = snapshot.val();
+
+              let userLoggedName;
+
+              Object.keys(users).forEach((key) => {
+                  const user = users[key];
+                  if (user.userId === userId) {
+                      userLoggedName = user.nome;
+                  }
+              });
+
+              if (userLoggedName) {
+                  $("#myAccount").text( userLoggedName ); 
+              }
+
+          }).catch((error) => {
+              console.error(error);
+          });
+
+      } else {
+          $("#log").show();
+          $("#registo").show();
+          $("#logout").hide();
+          $("#myAccount").hide();
+      }
+
+        // Event listener para cada item de navegação do dia
+        document.querySelectorAll('.nav-link').forEach(item => {
+            item.addEventListener('click', function() {
+                const dia = this.getAttribute('data-target').split('_')[1];
+                exibirSessoes(idFilme, dia); // Passando o parâmetro 'dia' para a função
+            });
+        });
+
+        // Função para exibir sessões de um filme em um determinado dia
+        function exibirSessoes(idFilme, dia) {
+            const containerId = `sessionsContainer_${dia}`;
+            const container = document.getElementById(containerId);
+
+            // Limpa o conteúdo do container antes de adicionar novas sessões
+            container.innerHTML = '';
+
+            // Consulta ao Firestore para obter as sessões do filme e do dia específicos
+            getDocs(query(collection(firestore, 'sessaoFilme'), where('idFilme', '==', idFilme), where('diaSemana', '==', dia)))
+                .then(querySnapshot => {
+                    querySnapshot.forEach(doc => {
+                        const sessao = doc.data();
+                        console.log("Sessão recuperada do Firestore:", sessao);
+                        const horario = sessao.horario;
+                        const sala = sessao.sala;
+
+                        // Cria um elemento de sessão
+                        const sessaoDiv = document.createElement('div');
+                        sessaoDiv.innerHTML = `
+                            <label class="choose-section__time-label">
+                                <input class="choose-section__input visually-hidden" type="radio" value="${horario}" name="time" id="time${horario.replace(':', '')}" />
+                                <span class="choose-section__time">
+                                    <time datetime="${horario}" class="choose-section__time--bold">${horario}</time>
+                                </span>
+                            </label>
+                        `;
+
+                        // Adiciona os atributos de data ao elemento da sessão
+                        sessaoDiv.dataset.horario = horario;
+                        sessaoDiv.dataset.sala = sala;
+
+                        // Adiciona a sessão ao container
+                        container.appendChild(sessaoDiv);
+
+                        // Adiciona um manipulador de eventos de clique para redirecionar para seats.html
+                        sessaoDiv.addEventListener("click", function() {
+                            // Verifica se os atributos data-horario e data-sala estão definidos no elemento
+                            if (this.dataset.horario && this.dataset.sala) {
+                                // Obtém os valores dos atributos data-horario e data-sala
+                                const selectedSession = this.dataset.horario;
+                                const selectedRoom = this.dataset.sala;
+                                const selectedMovieId = idFilme; // Obtém o ID do filme
+                                
+                                // Redireciona para seats.html com os parâmetros da sessão, sala e filme
+                                window.location.href = `seats.html?session=${selectedSession}&room=${selectedRoom}&movie=${selectedMovieId}`;
+                            } else {
+                                console.error("Atributos de data ausentes no elemento da sessão.");
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error("Erro ao obter sessões do Firestore:", error);
+                });
+        }
+
+        // Chamada da função exibirSessoes com o ID do filme e o dia específicos
+        exibirSessoes(idFilme, dia);
+  })
+    </script>   
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="news.css">
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <title>CineSeven</title>
+    </head>
+    
+    <body>
+      <div class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="main.html">
+          <div class="logo">
+              <h1>CineSeven</h1>
+          </div>
+        </a>
+        <div class="links">
+              <a href="cartaz.html">Cartaz</a>
+              <a href="news.html">Notícias</a>
+              <a href="cinemas.html" >Cinemas</a>
+              <a href="registo.html" id="registo">Registo</a>
+              <a href="rlogin.html" id="log">Login</a>
+              <a href="#" onclick="myFunction()" class="dropbtn" id="myAccount" style="display:none"></a>
+              <div class="dropdown">
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="profile.html">Perfil</a>
+                  <a href="#" id="logout">LogOut</a>
+                </div>
+              </div>
+              <a href="admin/admin.html" id="nel" style="display:none">Painel</a>                      
+          </div>
+      </div>  
+    </div>
+
+    <script>
+      /* When the user clicks on the button, 
+      toggle between hiding and showing the dropdown content */
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+      </script>
+        <br>
+        <div class="container-n">
+            <center><h2 class="display-4">Notícias</h2></center>
+        </div>
+        <br>
+
+        <section id="gallery">
+          <div class="container">
+            <div class="row">
+              
+            </div>
+          </div>
+        </section>
+
+          
+        <script type="module">
+            document.addEventListener('DOMContentLoaded', function () {
+              if (sessionStorage.getItem('loggedIn') === 'true') {
+                $("#log").hide();
+                $("#registo").hide();
+                $("#logout").show();
+                $("#myAccount").show();
+              } 
+              else 
+              {
+                $("#log").show();
+                $("#registo").show();
+                $("#logout").hide();
+                $("#myAccount").hide();
+              }
+        
+          // Assuming you have a logout button with id "logoutBtn"
+            $("#logout").click(function () {
+                sessionStorage.removeItem('loggedIn');
+                // Redirect to the login page or any other desired location
+            
+                window.location.href = 'rlogin.html';
+              });
+            });  
+        </script>
+
+        <script type="module">     
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+            import { getAuth} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+            import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+            import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, where, deleteDoc} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+      
+            const firebaseConfig = {
+              databaseURL: "https://pap--11-01-default-rtdb.europe-west1.firebasedatabase.app",
+              apiKey: "AIzaSyAQ53q90zz4ladNEqDqWgcaMXIvOu7uYrY",
+              authDomain: "pap--11-01.firebaseapp.com",
+              projectId: "pap--11-01",
+              storageBucket: "pap--11-01.appspot.com",
+              messagingSenderId: "768987706479",
+              appId: "1:768987706479:web:47662a04df7274d930499a",
+              measurementId: "G-B7QVNLWHJZ"
+            };
+
+            const firebaseApp = initializeApp(firebaseConfig);
+            const auth = getAuth(firebaseApp);
+            const database = getDatabase(firebaseApp); 
+
+            document.addEventListener('DOMContentLoaded', function () {
+
+              // Assuming you have a logout button with id "logoutBtn"
+              $("#logout").click(function () {
+                  sessionStorage.removeItem('loggedIn');
+                  // Redirect to the login page or any other desired location
+                  location.reload();
+              });
+
+              const clientes = ref(database);
+
+              // Verificar o estado de autenticação do usuário
+              let userLogged;
+
+              if (sessionStorage.getItem('loggedIn') === 'true') {
+
+                $("#log").hide();
+                $("#registo").hide();
+                $("#logout").show();
+                $("#myAccount").show();
+
+                auth.onAuthStateChanged(function(user) {
+                    if (user) {
+                        // O usuário está autenticado
+                        userLogged = user.uid;
+                        // 'user' contém informações sobre o usuário autenticado
+                        // Você pode acessar outras informações do usuário, como o email, usando user.email
+                    } else {
+                        // Nenhum usuário está autenticado
+                        console.log('Nenhum usuário logado.');
+                    }
+                });
+
+                get(child(clientes, `clientes`)).then((snapshot) => {
+
+                    const userId = userLogged;
+                    const users = snapshot.val();
+
+                    let userLoggedName;
+
+                    Object.keys(users).forEach((key) => {
+                        const user = users[key];
+                        if (user.userId === userId) {
+                            userLoggedName = user.nome;
+                        }
+                    });
+
+                    if (userLoggedName) {
+                        $("#myAccount").text( userLoggedName ); 
+                    }
+
+                }).catch((error) => {
+                    console.error(error);
+                });
+
+              } else {
+                $("#log").show();
+                $("#registo").show();
+                $("#logout").hide();
+                $("#myAccount").hide();
+              }
+            });
+
+            document.addEventListener('DOMContentLoaded', async function () {
+                const noticiasCollection = collection(database, 'noticias');
+                const querySnapshot = await getDocs(noticiasCollection);
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    inserirNoticiaNaGaleria(data.titulo, data.descricao, data.capa, data.texto);
+                });
+            });
+
+            function inserirNoticiaNaGaleria(titulo, descricao, capaUrl) {
+                const cardContainer = document.querySelector('.card-container');
+                const article = document.createElement('article');
+                article.classList.add('card');
+                article.innerHTML = `
+                    <img src="${capaUrl}" class="card__background">
+                    <div class="card__content">
+                        <div class="card__content--container">
+                            <h2 class="card__title">${titulo}</h2>
+                            <p class="card__description">${descricao}</p>
+                            <p class="card__text">${text}</p>
+                        </div>
+                        <a href="noticia.html" class="btn btn-secondary">Ver mais</a>
+                    </div>
+                `;
+                cardContainer.appendChild(article);
+            }
+        </script>
+    </body>
+</html>

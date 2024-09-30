@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="notici.css">
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>  
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <title>CineSeven</title>
+    </head>
+    
+    <body>
+      <div class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="main.html">
+              <div class="logo">
+                  <h1>CineSeven</h1>
+              </div>
+            </a>
+            <div class="links">
+                  <a href="cartaz.html">Cartaz</a>
+                  <a href="news.html">Notícias</a>
+                  <a href="cinemas.html" >Cinemas</a>
+                  <a href="registo.html" id="registo">Registo</a>
+                  <a href="rlogin.html" id="log">Login</a>
+                  <a href="#" onclick="myFunction()" class="dropbtn" id="myAccount" style="display:none"></a>
+                  <div class="dropdown">
+                    <div id="myDropdown" class="dropdown-content">
+                      <a href="profile.html">Perfil</a>
+                      <a href="#" id="logout">LogOut</a>
+                    </div>
+                  </div>
+                  <a href="admin/admin.html" id="nel" style="display:none">Painel</a>                      
+              </div>
+          </div>  
+        </div>
+
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+        </script>
+
+
+    <br>
+
+    <div class="container">
+        <section class="article-page">
+            <article>
+                <h1 id="tituloNoticia"></h1>
+                <div id="capaNoticia"></div>
+                <p id="descricaoNoticia"></p>
+                <p id="textoNoticia"></p>
+            </article>
+        </section>
+    </div>    
+
+    <br>
+    <br>
+    <div class="container">
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    </div>
+
+        
+    <section class="content-item" id="comments">
+        <div class="container">   
+            <div class="row">
+                <div class="col-sm-8">   
+                    <form>           
+                        <h3 class="pull-left">Novo comentário</h3>
+                        
+                        
+                        <fieldset>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <textarea class="form-control" id="message" placeholder="Seu Comentário"></textarea>
+                                </div><button type="submit" class="btn btn-success pull-right">Enviar</button>
+                            </div>  	
+                        </fieldset>
+                    </form>       
+                    
+                    <h3>Comentários</h3>
+                    
+                    <div id="commentsContainer">
+                        <!-- Os comentários serão adicionados aqui dinamicamente -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">  
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp, getDocs, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js';
+        import { getAuth} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+        import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQ53q90zz4ladNEqDqWgcaMXIvOu7uYrY",
+            authDomain: "pap--11-01.firebaseapp.com",
+            projectId: "pap--11-01",
+            storageBucket: "pap--11-01.appspot.com",
+            messagingSenderId: "768987706479",
+            appId: "1:768987706479:web:47662a04df7274d930499a",
+            measurementId: "G-B7QVNLWHJZ"
+        };
+
+        // Inicialização do Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const firestore = getFirestore(app);
+ 
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Obtenha o ID da notícia da URL
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const idNoticia = urlParams.get('id');
+
+            // Referência para a coleção de notícias
+            const colRef = collection(firestore, 'noticias');
+
+            // Seletor do elemento HTML onde as notícias serão exibidas
+            const noticiaContainer = document.getElementById('noticiaContainer');
+
+            try {
+                const querySnapshot = await getDocs(colRef);
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (doc.id === idNoticia) {
+                        // Crie elementos HTML para exibir a notícia
+                        const tituloElement = document.getElementById('tituloNoticia');
+                        const descricaoElement = document.getElementById('descricaoNoticia');
+                        const textoElement = document.getElementById('textoNoticia');
+
+                        tituloElement.textContent = data.titulo;
+                        descricaoElement.textContent = data.descricao;
+                        textoElement.textContent = data.texto;
+                    }
+                });
+            } catch (error) {
+                console.error("Erro ao obter documentos:", error);
+            }
+        });
+
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Verifica se o usuário está logado
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                try {
+                    // Obtém o nome do usuário da sessão
+                    let userLoggedName;
+                    
+                    // Obtém a mensagem do comentário
+                    const message = document.getElementById('message').value;
+
+                    // Adiciona o comentário ao Firestore
+                    await addDoc(collection(firestore, 'comentarios'), {
+                        mensagem: message,
+                        nome: name,
+                        data: serverTimestamp()
+                    });
+                    console.log('Comentário adicionado com sucesso!');
+
+                    // Limpa o campo de mensagem após o envio
+                    document.getElementById('message').value = ''; 
+                } catch (error) {
+                    document.getElementById('message').value = ''; 
+                    console.error('Erro ao adicionar comentário:', error);
+                }
+            } else {
+                // Se o usuário não estiver logado, exibe uma mensagem de erro ou redireciona para a página de login
+                console.error('Usuário não está logado.');
+                // Ou redirecione para a página de login:
+                window.location.href = 'rlogin.html';
+            }
+        });
+
+        // Função para renderizar os comentários na página
+        async function renderComments() {
+            const commentsContainer = document.getElementById('commentsContainer');
+
+            // Limpa qualquer conteúdo anterior
+            commentsContainer.innerHTML = '';
+
+            try {
+                // Obtém os comentários do Firestore
+                const querySnapshot = await getDocs(collection(firestore, 'comentarios'));
+
+                // Para cada documento (comentário) na coleção
+                querySnapshot.forEach((doc) => {
+                    const commentData = doc.data();
+                    // Cria elementos HTML para representar o comentário
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'media';
+                    commentDiv.innerHTML = `
+                        <div class="media-body">
+                            <h4 class="media-heading">${commentData.nome}</h4>
+                            <p>${commentData.mensagem}</p>
+                        </div>
+                    `;
+                    // Adiciona o comentário ao container
+                    commentsContainer.appendChild(commentDiv);
+                });
+            } catch (error) {
+                console.error('Erro ao renderizar os comentários:', error);
+            }
+        }
+
+        // Chama a função para renderizar os comentários ao carregar a página
+        document.addEventListener('DOMContentLoaded', renderComments);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lugares</title>
+    <link rel="stylesheet" href="seat.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>  
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const session = urlParams.get('session');
+            const room = urlParams.get('room');
+            console.log("Session:", session);
+            console.log("Room:", room);
+
+            // Aqui você pode atualizar a página com as informações da sessão
+        });
+
+    </script>
+
+    <h4 id="session">
+        <!-- Opções de sessão serão preenchidas dinamicamente pelo JavaScript -->
+    </h4>
+
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>Disponível</small>
+        </li>
+        <li>
+            <div class="seat selected"></div>
+            <small>Selecionado</small>
+        </li>
+        <li>
+            <div class="seat occupied"></div>
+            <small>Ocupado</small>
+        </li>
+    </ul>
+
+    <div class="container_">
+        <center><div class="screen" style="color:black; height: 30px;">Tela</div></center>
+        <div class="row">
+            <div class="seat" id="seat1"></div>
+            <div class="seat" id="seat2"></div>
+            <div class="seat" id="seat3"></div>
+            <div class="seat" id="seat4"></div>
+            <div class="seat" id="seat5"></div>
+            <div class="seat" id="seat6"></div>
+            <div class="seat" id="seat7"></div>
+            <div class="seat" id="seat8"></div>
+        </div>
+        <div class="row">
+            <div class="seat" id="seat9"></div>
+            <div class="seat" id="seat10"></div>
+            <div class="seat" id="seat11"></div>
+            <div class="seat" id="seat12"></div>
+            <div class="seat" id="seat13"></div>
+            <div class="seat" id="seat14"></div>
+            <div class="seat" id="seat15"></div>
+            <div class="seat" id="seat16"></div>
+        </div>
+        <div class="row">
+            <div class="seat" id="seat17"></div>
+            <div class="seat" id="seat18"></div>
+            <div class="seat" id="seat19"></div>
+            <div class="seat" id="seat20"></div>
+            <div class="seat" id="seat21"></div>
+            <div class="seat" id="seat22"></div>
+            <div class="seat" id="seat23"></div>
+            <div class="seat" id="seat24"></div>
+        </div>
+        <div class="row">
+            <div class="seat" id="seat25"></div>
+            <div class="seat" id="seat26"></div>
+            <div class="seat" id="seat27"></div>
+            <div class="seat" id="seat28"></div>
+            <div class="seat" id="seat29"></div>
+            <div class="seat" id="seat30"></div>
+            <div class="seat" id="seat31"></div>
+            <div class="seat" id="seat32"></div>
+        </div>
+        <div class="row">
+            <div class="seat" id="seat33"></div>
+            <div class="seat" id="seat34"></div>
+            <div class="seat" id="seat35"></div>
+            <div class="seat" id="seat36"></div>
+            <div class="seat" id="seat37"></div>
+            <div class="seat" id="seat38"></div>
+            <div class="seat" id="seat39"></div>
+            <div class="seat" id="seat40"></div>
+        </div>
+    </div>
+
+    <p class="text">
+        Bilhetes Selecionados <span id="count">0</span> Preço a pagar €<span id="total">0</span>!
+    </p>
+
+    <button id="buy-button" class="btn btn-success gradient-custom-4 text-body">Comprar Bilhetes</button>
+    <br>
+    <button class="btn btn-danger"><a href="main.html" >Cancelar</a></button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel">Detalhes do Pagamento</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="d-flex flex-column">
+                <h6 class="text mb-1">Nome</h6>
+                <input id="nome" class="form-control mb-3" type="text" placeholder="Nome">
+            </div>
+            <div class="d-flex flex-column">
+                <h6 class="text mb-1">Número do Cartão</h6>
+                <input id="numero-cartao" class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+            </div>
+            <div class="d-flex flex-column">
+                <h6 class="text mb-1">Validade</h6>
+                <input id="validade" class="form-control mb-3" type="text" placeholder="MM/YYYY">
+            </div>
+            <div class="d-flex flex-column">
+                <h6 class="text">CVC</h6>
+                <input id="cvc" class="form-control mb-3 pt-2 " type="password" placeholder="***">
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" id="comprar" class="btn btn-primary">Comprar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, arrayUnion, doc, getDocs, query, where, getDoc } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+        databaseURL: "https://pap--11-01-default-rtdb.europe-west1.firebasedatabase.app",
+        apiKey: "AIzaSyAQ53q90zz4ladNEqDqWgcaMXIvOu7uYrY",
+        authDomain: "pap--11-01.firebaseapp.com",
+        projectId: "pap--11-01",
+        storageBucket: "pap--11-01.appspot.com",
+        messagingSenderId: "768987706479",
+        appId: "1:768987706479:web:47662a04df7274d930499a",
+        measurementId: "G-B7QVNLWHJZ"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.querySelector(".container_");
+            const seats = document.querySelectorAll(".row .seat:not(.occupied)");
+            const count = document.getElementById("count");
+            let total = document.getElementById("total");
+            const buyButton = document.getElementById("buy-button");
+            const paymentDetailsContainer = document.getElementById("paymentModal");
+            const urlParams = new URLSearchParams(window.location.search);
+            const session = urlParams.get('session');
+            const room = urlParams.get('room');
+            const nomeDocumento = urlParams.get('movie');
+
+            let ticketPrice = 9;
+            let selectedSeatsCount = 0;
+
+            // Verifica o estado de autenticação do usuário
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    console.log("Usuário logado:", user.displayName, user.email, user.uid);
+                } else {
+                    console.log("Nenhum usuário logado.");
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const session = urlParams.get('session');
+                const room = urlParams.get('room');
+                const movie = urlParams.get('movie'); // Adicione isso para obter o filme selecionado
+
+                // Defina o filmeSelecionado com base no parâmetro do URL
+                const filmeSelecionado = movie ? movie : ""; // Define filmeSelecionado como uma string vazia se não houver parâmetro 'movie'
+
+                // Atualiza o conteúdo do elemento com o ID 'session' com as informações da sessão e sala
+                const sessionElement = document.getElementById("session");
+                sessionElement.textContent = `Sessão: ${session}, Sala: ${room}`;
+            });
+    
+            // Function to update selected count and total price
+            function updateSelectedCount() {
+                const selectedSeats = document.querySelectorAll(".row .seat.selected");
+    
+                const seatsIndex = [...selectedSeats].map((seat) => {
+                    return [...seats].indexOf(seat);
+                });
+    
+                localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
+    
+                selectedSeatsCount = selectedSeats.length;
+    
+                count.innerText = selectedSeatsCount;
+                total.innerText = selectedSeatsCount * ticketPrice;
+            }
+                   
+            // Populate UI with saved data
+            function populateUI() {
+                const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+                if (selectedSeats !== null && selectedSeats.length > 0) {
+                    seats.forEach((seat, index) => {
+                        if (selectedSeats.indexOf(index) > -1) {
+                            seat.classList.add("selected", "occupied");
+                        }
+                    });
+                }
+
+                const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
+
+                if (selectedMovieIndex !== null) {
+                    movieSelect.selectedIndex = selectedMovieIndex;
+                }
+            }
+
+            // Event listener for seat selection
+            container.addEventListener("click", (e) => {
+                if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+                    if (selectedSeatsCount < 4 || e.target.classList.contains("selected")) {
+                        e.target.classList.toggle("selected");
+                        updateSelectedCount(); 
+                    } else {
+                        alert("Só pode selecionar até 4 assentos.");
+                    }
+                }
+            });
+    
+            updateSelectedCount();
+    
+            // Evento de clique no botão "Buy Tickets"
+            buyButton.addEventListener("click", async () => {
+                const user = auth.currentUser; // Obtendo o usuário atual
+
+                if (user) {
+                    // Verificar quantos assentos o usuário já comprou
+                    const userEmail = user.email;
+                    const userSeatsQuery = query(collection(db, "assentos"), where("email", "==", userEmail));
+                    const userSeatsSnapshot = await getDocs(userSeatsQuery);
+                    const userSeatsCount = userSeatsSnapshot.size;
+
+                    // Verificar se o usuário já comprou 4 assentos ou mais
+                    if (userSeatsCount >= 4) {
+                        alert("Você já comprou 4 ou mais assentos. Não é possível comprar mais.");
+                        return; // Sai da função sem continuar com a compra
+                    }
+
+                    const selectedSeats = document.querySelectorAll(".row .seat.selected");
+                    if (selectedSeats.length > 0) {
+                        $('#paymentModal').modal('show'); // Abrindo o modal de pagamento
+                    } else {
+                        alert("Por favor, selecione pelo menos um assento para prosseguir com a compra.");
+                    }
+                } else {
+                    // Se não houver usuário logado, redirecione para a página de login
+                    window.location.href = "rlogin.html";
+                }
+            });
+
+            const selectedSeats = document.querySelectorAll(".row .seat.selected");
+            const selectedSeatIds = [];
+            selectedSeats.forEach(seat => {
+                selectedSeatIds.push(seat.id);
+            });
+
+            if (nomeDocumento) {
+                // Crie uma referência ao documento do filme no Firestore usando o nome do documento
+                const filmeDocRef = doc(db, 'filme', nomeDocumento);
+
+                // Obtenha os dados do filme usando a referência ao documento
+                getDoc(filmeDocRef)
+                    .then((docSnapshot) => {
+                        if (docSnapshot.exists()) {
+                            const filmeData = docSnapshot.data();
+                            const filmeNome = filmeData.nome;
+
+                            const sessionElement = document.getElementById("session");
+                            sessionElement.textContent = `Sessão: ${session}, Sala: ${room}, Filme: ${filmeNome}`;
+
+                            document.getElementById("comprar").addEventListener("click", async () => {
+                                const nome = document.getElementById("nome").value;
+                                const numero_cartao = document.getElementById("numero-cartao").value;
+                                const validade = document.getElementById("validade").value;
+                                const cvc = document.getElementById("cvc").value;
+
+                                const session = urlParams.get('session'); // Obtem sessão da URL
+                                const room = urlParams.get('room'); // Obtem sala da URL
+
+                                if (!nome || !numero_cartao || !validade || !cvc) {
+                                    alert("Por favor, preencha todos os campos do modal de pagamento.");
+                                    return;
+                                }
+
+                                const user = auth.currentUser;
+                                const userEmail = user ? user.email : null;
+
+                                const selectedSeats = document.querySelectorAll(".row .seat.selected");
+                                const selectedSeatIds = Array.from(selectedSeats).map(seat => seat.id);
+
+                                if (session && room && filmeNome && total.innerText && userEmail && selectedSeatIds.length > 0) {
+                                    try {
+                                        await enviarPagamentoParaFirestore(nome, numero_cartao, validade, cvc, filmeNome, session);
+                                        await enviarDadosParaFirestore(session, room, filmeNome, parseFloat(total.innerText), userEmail, selectedSeatIds);
+
+                                        $('#paymentModal').modal('hide');
+                                        alert("Compra concluída com sucesso!");
+                                    } catch (error) {
+                                        console.error("Erro ao concluir a compra: ", error);
+                                    }
+                                } else {
+                                    console.error("Um ou mais valores necessários estão indefinidos.");
+                                }
+                            });
+                        } else {
+                            console.log("Nenhum documento encontrado para o filme com o nome:", nomeDocumento);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao obter dados do filme:", error);
+                    });
+            } else {
+                console.error("Nome do documento do filme não encontrado na URL.");
+            }
+
+            // Função para gerar um código aleatório de 6 caracteres
+            function generateRandomCode() {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let result = '';
+                for (let i = 0; i < 6; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+
+            // Função para enviar os dados dos assentos para o Firestore
+            async function enviarDadosParaFirestore(session, room, filmeNome, precoTotal, email, assentosSelecionados, dia) {
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        // Gerar um código aleatório de 6 caracteres
+                        const codigo = generateRandomCode();
+
+                        const userEmail = user.email;
+
+                        const assentoRef = await addDoc(collection(db, "assentos"), {
+                            sessão: session,
+                            sala: room,
+                            filme: filmeNome,
+                            preçoTotal: precoTotal,
+                            email: email,
+                            hora: new Date(),
+                            assentosSelecionados: assentosSelecionados,
+                            codigo: codigo,
+                        });
+
+                        console.log("Dados do assento enviados com sucesso:", assentoRef.id);
+                    } else {
+                        console.log("Nenhum usuário logado.");
+                    }
+                } catch (error) {
+                    console.error("Erro ao enviar dados dos assentos: ", error);
+                }
+            }
+
+            // Função para enviar os dados do pagamento para o Firestore
+            async function enviarPagamentoParaFirestore(nome, numero_cartao, validade, cvc, filmeNome, session) {
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        const userEmail = user.email;
+                        const selectedSeats = document.querySelectorAll(".row .seat.selected");
+                        const selectedSeatIds = [];
+                        selectedSeats.forEach(seat => {
+                            selectedSeatIds.push(seat.id);
+                        });
+
+                        const pagamentoRef = await addDoc(collection(db, "pagamentos"), {
+                            nome: nome,
+                            email: userEmail,
+                            sessão: session,
+                            numero_cartao: numero_cartao,
+                            validade: validade,
+                            cvc: cvc,
+                            preço: selectedSeatsCount * ticketPrice,
+                            hora: new Date(),
+                            assentosSelecionados: selectedSeatIds,
+                            filmeSelecionado: filmeNome
+                        });
+
+                        console.log("Dados do pagamento enviados com sucesso:", pagamentoRef.id);
+                    } else {
+                        console.log("Nenhum usuário logado.");
+                    }
+                } catch (error) {
+                    console.error("Erro ao enviar dados do pagamento: ", error);
+                }
+            }
+            
+            document.getElementById("numero-cartao").addEventListener("input", function(event) {
+                this.value = this.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+                // Limita o número de caracteres a 16 (número do cartão de crédito)
+                if (this.value.length > 16) {
+                    this.value = this.value.slice(0, 16);
+                }
+            });
+
+            document.getElementById("validade").addEventListener("input", function(event) {
+                this.value = this.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+                // Limita o número de caracteres a 7 (MM/YYYY)
+                if (this.value.length > 7) {
+                    this.value = this.value.slice(0, 7);
+                }
+
+                if (this.value.length >= 2) {
+                    // Insere automaticamente a barra após o mês (apenas se ainda não estiver presente)
+                    if (this.value.indexOf('/') === -1) {
+                        this.value = this.value.slice(0, 2) + '/' + this.value.slice(2);
+                    }
+                }
+            });
+
+            // Função para limpar assentos marcados como ocupados
+            function clearOccupiedSeats() {
+                const seats = document.querySelectorAll(".seat");
+                seats.forEach(seat => {
+                    seat.classList.remove("occupied");
+                });
+            }
+
+            // Função para marcar os assentos selecionados como ocupados na interface do usuário
+            function marcarAssentosComoOcupados(assentosSelecionados) {
+                assentosSelecionados.forEach(id => {
+                    const assento = document.getElementById(id);
+                    if (assento) {
+                        assento.classList.add("occupied");
+                    } else {
+                        console.error("ID de assento inválido:", id);
+                    }
+                });
+            }
+
+            // Função para carregar lugares ocupados do Firestore e marcá-los na interface do usuário
+            async function carregarLugaresOcupados(session, room, movieParam) {
+                try {
+                    // Crie uma referência ao documento do filme usando o nome do documento recebido
+                    const filmeDocRef = doc(db, 'filme', movieParam);
+
+                    // Obtenha os dados do filme usando a referência ao documento
+                    const docSnapshot = await getDoc(filmeDocRef);
+
+                    if (docSnapshot.exists()) {
+                        const filmeData = docSnapshot.data();
+                        const filmeNome = filmeData.nome; // Supondo que 'nome' seja o campo que armazena o nome do filme
+
+                        // Agora você tem o nome do filme, você pode continuar com o restante do código
+                        const snapshot = await getDocs(collection(db, "assentos"));
+                        snapshot.forEach(doc => {
+                            const dadosAssento = doc.data();
+                            if (dadosAssento.sala === room && dadosAssento.sessão === session && dadosAssento.filme === filmeNome) {
+                                const assentosSelecionados = dadosAssento.assentosSelecionados;
+                                marcarAssentosComoOcupados(assentosSelecionados);
+                            }
+                        });
+                        // Após a marcação dos assentos, chame a função para popular a interface do usuário
+                        populateUI();
+                    } else {
+                        console.log("Nenhum documento encontrado para o filme com o nome:", movieParam);
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar lugares ocupados:", error);
+                }
+            }
+
+            // Verifica se há assentos ocupados ao carregar a página
+            window.addEventListener("load", () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const roomParam = urlParams.get('room');
+                const sessionParam = urlParams.get('session');
+                const movieParam = urlParams.get('movie');
+                carregarLugaresOcupados(sessionParam, roomParam, movieParam);
+            });
+        });
+    </script>
+</body>
+</html>

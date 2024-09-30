@@ -1,0 +1,116 @@
+body {
+    align-items: center;
+    background-color: #3e5164;
+    background-image: url(https://media.giphy.com/media/W5GyJBpRgszhm/giphy.gif)
+  }
+
+  h1 {
+    color: #ffffff;
+  }
+  
+  h2 {
+    color: #ffffff;
+  }
+  
+  p {
+    color: #fff;
+  }
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+  
+  /* Toggle Styles */
+  
+  #viewport {
+    padding-left: 250px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  #content {
+    width: 100%;
+    position: relative;
+    margin-right: 0;
+  }
+  
+  /* Sidebar Styles */
+  
+  #sidebar {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #37474F;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  #sidebar header {
+    background-color: #263238;
+    font-size: 25px;
+    line-height: 52px;
+    text-align: center;
+  }
+  
+  #sidebar header a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+  }
+  
+  #sidebar header a:hover {
+    color: #fff;
+  }
+  
+  #sidebar .nav a{
+    background: none;
+    border-bottom: 1px solid #455A64;
+    color: #CFD8DC;
+    font-size: 14px;
+    padding: 17px 1px;
+  }
+  
+  #sidebar .nav a:hover{
+    background: none;
+    color: #ECEFF1;
+  }
+  
+  #sidebar .nav a i{
+    margin-right: 16px;
+  }
+
+  .nav>li {
+    position: relative;
+    display: block;
+    width: -webkit-fill-available;
+}
+
+.imgcapa{
+  padding: 30px 20px 0px 20px;
+}
+
+#formSessao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 315px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000; /* Garante que o formulário esteja na frente de outros elementos */
+}
+
+
+

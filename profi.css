@@ -1,0 +1,87 @@
+body {
+    align-items: center;
+    background-color: #3e5164;
+    background-image: url(https://media.giphy.com/media/W5GyJBpRgszhm/giphy.gif)
+}
+.osahan-account-page-left .nav-link {
+    padding: 18px 20px;
+    border: none;
+    font-weight: 600;
+    color: #535665;
+}
+.osahan-account-page-left .nav-link.active {
+    background: #f3f7f8;
+    color: #282c3f !important;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+a:hover{
+    text-decoration:none;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.osahan-account-page-right #ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribui os bilhetes uniformemente em três colunas */
+    padding: 20px; /* Adiciona espaçamento interno */
+    flex-direction: row; /* Exibe os bilhetes em linhas horizontais */
+}
+
+.osahan-account-page-right .ticket-item {
+    width: calc(33.33% - 20px); /* 33.33% para três colunas, 20px para a margem entre as colunas */
+    margin-bottom: 20px; /* Adiciona espaço entre os bilhetes */
+    box-sizing: border-box; /* Para incluir padding e borda na largura */
+    border: 1px solid #ccc; /* Adiciona uma borda para destacar os bilhetes */
+    padding: 10px; /* Adiciona espaçamento interno */
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+    background-color: #f9f9f9; /* Define uma cor de fundo para os bilhetes */
+}
+
+@media only screen and (max-width: 768px) {
+    .osahan-account-page-right .ticket-item {
+        width: calc(50% - 20px); /* 50% para duas colunas em telas menores */
+    }
+}
+
+.osahan-account-page-right #payment-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribui os pagamentos uniformemente em três colunas */
+    padding: 20px; /* Adiciona espaçamento interno */
+    flex-direction: row; /* Exibe os pagamentos em linhas horizontais */
+}
+
+.osahan-account-page-right .payment-item {
+    width: calc(33.33% - 20px); /* 33.33% para três colunas, 20px para a margem entre as colunas */
+    margin-bottom: 10px; /* Reduz a margem inferior para 10px */
+    box-sizing: border-box; /* Para incluir padding e borda na largura */
+    border: 1px solid #ccc; /* Adiciona uma borda para destacar os pagamentos */
+    padding: 10px; /* Adiciona espaçamento interno */
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+    background-color: #f9f9f9; /* Define uma cor de fundo para os pagamentos */
+}
+
+@media only screen and (max-width: 768px) {
+    .osahan-account-page-right .payment-item {
+        width: calc(50% - 20px); /* 50% para duas colunas em telas menores */
+    }
+}
+

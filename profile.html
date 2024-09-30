@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>  
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="profi.css">  
+  <title>CineSeven - Perfil</title>
+</head>
+<body>
+  <br>
+  <br>
+  <br>
+  <br>
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="osahan-account-page-left shadow-sm bg-white h-100">
+          <div class="border-bottom p-5">
+            <div class="osahan-user text-center">
+              <div class="osahan-user-media">
+                <div class="osahan-user-media-body">
+                  <h2 href="main.html">CineSeven</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="perfil-tab" data-toggle="tab" href="#perfil" role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
+            </li>
+            <br>
+            <li class="nav-item">
+              <a class="nav-link" id="metodo-tab" data-toggle="tab" href="#metodo" role="tab" aria-controls="metodo" aria-selected="false">Bilhetes</a>
+            </li>
+            <br>
+            <li class="nav-item">
+                <a class="nav-link" id="payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="payments" aria-selected="false">Pagamentos</a>
+
+            </li>         
+            <br>
+            <li class="nav-item">
+                <a class="nav-link" href="main.html" role="tab" aria-selected="false">Voltar</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Perfil -->
+      
+      <div class="col-md-9">
+        <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+              <h3 class="font-weight-bold mt-0 mb-4">Perfil</h3>
+              <br>
+              <h5>Email: <span id="email"></span></h5> 
+              <br>   
+              <br> 
+              <h5>Palavra-Pass: ********</h5>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+          </div>
+          
+          <!-- Bilhetes -->
+          <div id="metodo" class="tab-pane fade" role="tabpanel" aria-labelledby="metodo-tab">
+            <h3 class="font-weight-bold mt-0 mb-4">Bilhetes</h3>
+            <div id="ticket-container"></div>
+          </div>
+
+          <!-- Pagamentos -->
+          <div id="payments" class="tab-pane fade" role="tabpanel" aria-labelledby="payments-tab">
+            <h3 class="font-weight-bold mt-0 mb-4">Pagamentos</h3>
+            <div id="payment-container"></div>
+          </div>
+        </div>
+      </div>                  
+    </div>                
+  </div>                
+  
+  <script>
+    // Função para alternar entre as abas
+    function switchTab(tabId) {
+        ['perfil', 'metodo', 'payments'].forEach(function(tab) {
+            const element = document.getElementById(tab);
+            const tabLink = document.getElementById(tab + '-tab');
+            if (element && tabLink) { // Verifica se o elemento foi encontrado
+                element.classList.remove('show', 'active');
+                tabLink.classList.remove('active');
+                if (tab === tabId) {
+                    element.classList.add('show', 'active');
+                    tabLink.classList.add('active');
+                }
+            } else {
+                console.error("Elemento não encontrado:", tab);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('perfil-tab').addEventListener('click', function(event) {
+            switchTab('perfil');
+        });
+
+        document.getElementById('metodo-tab').addEventListener('click', function(event) {
+            switchTab('metodo');
+        });
+
+        document.getElementById('payments-tab').addEventListener('click', function(event) {
+            switchTab('payments');
+        });
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+    // Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyAQ53q90zz4ladNEqDqWgcaMXIvOu7uYrY",
+        authDomain: "pap--11-01.firebaseapp.com",
+        projectId: "pap--11-01",
+        storageBucket: "pap--11-01.appspot.com",
+        messagingSenderId: "768987706479",
+        appId: "1:768987706479:web:47662a04df7274d930499a",
+        measurementId: "G-B7QVNLWHJZ"
+    };
+
+    // Inicializa o Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    async function getTicketInfo(userEmail) {
+        const bilhetesRef = collection(db, 'assentos');
+        const bilhetesQuery = query(bilhetesRef, where("email", "==", userEmail));
+
+        // Verifica se o elemento bilhetesContainer existe
+        const bilhetesContainer = document.getElementById('ticket-container');
+        if (!bilhetesContainer) {
+            console.error("Elemento ticket-container não encontrado.");
+            return;
+        }
+
+        bilhetesContainer.innerHTML = '';
+        
+        const bilhetesSnapshot = await getDocs(bilhetesQuery);
+
+        bilhetesSnapshot.forEach((doc) => {
+            const bilheteData = doc.data();
+            const bilheteDiv = document.createElement('div');
+            bilheteDiv.classList.add('ticket-item');
+            bilheteDiv.innerHTML = `
+                <p>Código: ${bilheteData.codigo}</p>
+                <p>Filme: ${bilheteData.filme}</p>
+                <p>Sessão: ${bilheteData.sessão}</p>
+                <p>Sala: ${bilheteData.sala}</p>
+                <p>Assentos: ${bilheteData.assentosSelecionados.map(seat => seat.replace('seat', '')).join(', ')}</p>
+                <p>Preço Total: ${bilheteData.preçoTotal}</p>
+                <hr>
+            `;
+            bilhetesContainer.appendChild(bilheteDiv);
+        });
+    }
+
+    async function getPaymentInfo(userEmail) {
+      // Consulta os documentos de pagamentos relacionados ao email do usuário
+      const pagamentosRef = collection(db, 'pagamentos');
+      const pagamentosQuery = query(pagamentosRef, where("email", "==", userEmail));
+
+      // Exibe os pagamentos na página
+      const pagamentosSnapshot = await getDocs(pagamentosQuery);
+      const pagamentosContainer = document.getElementById('payment-container');
+      console.log('Pagamentos Container:', pagamentosContainer); // Verifica se o container de pagamentos foi encontrado
+      if (!pagamentosContainer) {
+          console.error("Elemento payment-container não encontrado.");
+          return;
+      }
+
+      // Cria uma div para conter os pagamentos e aplica a classe row do Bootstrap
+      const pagamentosRow = document.createElement('div');
+          pagamentosRow.classList.add('row'); // Adiciona a classe row para garantir o layout em colunas
+
+          pagamentosSnapshot.forEach((doc) => {
+              const pagamentoData = doc.data();
+              console.log('Dados do Pagamento:', pagamentoData); // Verifica os dados do pagamento
+
+              // Verifica se os dados estão vazios
+              if (!pagamentoData) {
+                  console.error("Dados do pagamento estão vazios.");
+                  return;
+              }
+
+              // Cria um elemento de pagamento e aplica a classe payment-item
+              const pagamentoDiv = document.createElement('div');
+              pagamentoDiv.classList.add('payment-item'); // Adiciona a classe payment-item para estilização
+
+              // Preenche o elemento de pagamento com os dados
+              pagamentoDiv.innerHTML = `
+                  <p>Filme Selecionado: ${pagamentoData.filmeSelecionado}</p>
+                  <p>Sessão: ${pagamentoData.sessão}</p>
+                  <p>Preço: ${pagamentoData.preço}</p>
+                  <p>Número do Cartão: ${pagamentoData.numero_cartao}</p>
+                  <hr>
+              `;
+
+              // Adiciona o elemento de pagamento à div de pagamentos
+              pagamentosContainer.appendChild(pagamentoDiv);
+          });
+
+          // Adiciona a div de pagamentos ao contêiner de pagamentos
+          pagamentosContainer.appendChild(pagamentosRow);
+      }
+
+    document.getElementById('perfil-tab').addEventListener('click', async () => {
+        // Limpa o conteúdo dos containers de bilhetes e pagamentos
+        document.getElementById('ticket-container').innerHTML = '';
+        document.getElementById('payment-container').innerHTML = '';
+    });
+
+    document.getElementById('metodo-tab').addEventListener('click', async () => {
+        try {
+            // Limpa o conteúdo dos containers de bilhetes e pagamentos
+            document.getElementById('ticket-container').innerHTML = '';
+            document.getElementById('payment-container').innerHTML = '';
+
+            // Chama a função para recuperar informações de bilhetes apenas quando o usuário clica na aba "Método"
+            await getTicketInfo(auth.currentUser.email);
+        } catch (error) {
+            console.error("Erro ao recuperar informações de bilhetes:", error);
+        }
+    });
+
+    document.getElementById('payments-tab').addEventListener('click', async () => {
+        try {
+            // Limpa o conteúdo dos containers de bilhetes e pagamentos
+            document.getElementById('ticket-container').innerHTML = '';
+            document.getElementById('payment-container').innerHTML = '';
+
+            // Chama a função para recuperar informações de pagamentos apenas quando o usuário clica na aba "Pagamentos"
+            await getPaymentInfo(auth.currentUser.email);
+        } catch (error) {
+            console.error("Erro ao recuperar informações de pagamentos:", error);
+        }
+    });
+
+    // Verifica se o utilizador está autenticado
+    auth.onAuthStateChanged(async user => {
+        try {
+            if (user) {
+                // Utilizador autenticado
+                document.getElementById('email').textContent = user.email || 'Não especificado';
+            } else {
+                // Utilizador não autenticado
+                console.log('Nenhum usuário autenticado.');
+            }
+        } catch (error) {
+            console.error("Erro ao verificar autenticação do usuário:", error);
+        }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

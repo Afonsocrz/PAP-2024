@@ -1,0 +1,13 @@
+body {
+    align-items: center;
+    background-color: #3e5164;
+    background-image: url(https://media.giphy.com/media/W5GyJBpRgszhm/giphy.gif)
+  }
+    .gradient-custom-4 {
+    background: linear-gradient(to right, rgb(114, 114, 114), rgb(0, 0, 0))
+    }
+  .btn-success {
+      color: #fff;
+      border-color: #000000;
+  }
+    

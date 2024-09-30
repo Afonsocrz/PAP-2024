@@ -1,0 +1,236 @@
+body {
+    display:grid;
+    background-color: #3e5164;
+    background-image: url(https://media.giphy.com/media/W5GyJBpRgszhm/giphy.gif)
+  }
+  
+  .nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #2d445c;
+    background-image: url(https://media.giphy.com/media/W5GyJBpRgszhm/giphy.gif)
+  }
+  
+  .links {
+    width: 30%;
+    font-size: larger;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px;
+    font-family: system-ui, sans-serif;
+    font-size: 1.3rem;
+  }
+  
+  .links a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .links a:hover {
+    color: #9c9c9c;
+  }
+  
+  .logo{
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .padded {
+    padding: 100px 0;
+  }
+  .wrapper-grey {
+    background: #F4F4F4;
+  }
+  .avatar {
+    width: 30px;
+    border-radius: 50%;
+  }
+  .avatar-bordered {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: white 1px solid;
+  }
+  .avatar-large {
+    width: 50px;
+  }
+   
+  .card {
+    height: 250px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    background-size: cover !important;
+    color: white;
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  .card-user {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  .card-category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+  }
+  .card-description {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+  .card-description h2 {
+    font-size: 22px;
+  }
+  .card-description p {
+    font-size: 15px;
+  }
+  .card-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index:2;
+    background: black;
+    opacity: 0;
+  }
+  .card-link:hover{
+    opacity: 0.1;
+  }
+  .features img {
+    width: 100px;
+  }
+  .features h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .features p {
+    font-size: 15px;
+    font-weight: lighter;
+  }
+
+   .container{
+      color: #fff;
+    }
+
+    .title{
+      display: flex;
+      padding: 0 6rem;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+      width: 48%;
+    }
+
+    .espaco{
+      display: flex;
+      padding: 0 6rem;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+      width: 68%;
+    }
+
+    .gym{
+      display: flex;
+      padding: 0 6rem;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .imagem{
+      margin: 80px;
+      padding: 8px;
+      width: auto;
+      background-color: #f1f1f1;
+      box-shadow: 7px 11px 8px 0px;
+    }
+
+    .fotos{
+      display: flex;
+      padding: 0 6rem;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+    }
+    
+    .foto{
+      width:1000px;
+    }
+    
+    .fotos2{
+      display: flex;
+      padding: 0 6rem;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .galeria{
+      display: flex;
+        padding: 0 6rem;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .foto3{
+      margin: 80px;
+      width:300px;
+    }
+
+    .dropbtn {
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      right: 30%;
+      margin-top:6%; 
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 110px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown a:hover {background-color: #ddd;}
+    
+    .show {display: block;}
+
+    /* Transição suave entre as seções */
+    section {
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Efeito de rolagem suave para a navegação */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Efeito de zoom nas imagens quando o mouse passa sobre elas */
+    .zoom {
+        transition: transform 0.5s;
+    }
+
+    .zoom:hover {
+        transform: scale(1.1);
+    }
+    
